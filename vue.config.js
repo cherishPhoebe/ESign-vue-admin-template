@@ -36,7 +36,17 @@ module.exports = {
       warnings: false,
       errors: true
     },
-    before: require('./mock/mock-server.js')
+    // before: require('./mock/mock-server.js')
+    proxy:{
+      [process.env.VUE_APP_BASE_API]: { //  是.env.development 文件的 /dev-api
+        target: ' http://localhost:8030/',
+        chargeOrigin: true, // 开启代理服务器
+        pathRewrite: {
+        // '^/dev-api': '',
+          ['^' + process.env.VUE_APP_BASE_API] : '/api' // /dev-api 替换为空  https://www.easy-mock.com/mock/5f97da2747e82c655543228e/test-admin/dev-api
+        }
+      }
+    }
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
