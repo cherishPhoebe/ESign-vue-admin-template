@@ -56,6 +56,34 @@ export const constantRoutes = [
   },
 
   {
+    path: '/organization',
+    component: Layout,
+    redirect: '/organization/manager',
+    name: '组织机构',
+    meta: { title: '组织机构', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'manager',
+        name: '组织机构',
+        component: () => import('@/views/organization/manager/index'),
+        meta: { title: '组织机构', icon: 'table' }
+      },
+      {
+        path: 'user',
+        name: '用户管理',
+        component: () => import('@/views/organization/user/index'),
+        meta: { title: '用户管理', icon: 'tree' }
+      },
+      {
+        path: 'role',
+        name: '角色管理',
+        component: () => import('@/views/organization/role/index'),
+        meta: { title: '角色管理', icon: 'tree' }
+      }
+    ]
+  },
+
+  {
     path: '/example',
     component: Layout,
     redirect: '/example/table',
