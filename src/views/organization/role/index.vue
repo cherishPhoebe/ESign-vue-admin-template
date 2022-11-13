@@ -30,6 +30,14 @@
         </template>
       </el-table-column>
     </el-table>
+
+    <el-dialog :visible.sync="dialogVisible" :title="dialogType=='edit'?'编辑':'新增角色'">
+      <el-form :model="role" label-width="80px" label-position="left">
+        <el-form-item label="角色名称">
+          <el-input v-model="role.RoleName" placeholder="请输入角色名称" />
+        </el-form-item>
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 
@@ -39,8 +47,8 @@ export default {
   data() {
     return {}
   },
-  methods:{
-    handleAddRole(){}
+  methods: {
+    handleAddRole() {}
 
   }
 }
