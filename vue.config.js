@@ -39,7 +39,7 @@ module.exports = {
     // before: require('./mock/mock-server.js')
     proxy:{
       [process.env.VUE_APP_BASE_API]: { //  是.env.development 文件的 /dev-api
-        target: ' http://localhost:8030/',
+        target: ' http://localhost:8013/',
         chargeOrigin: true, // 开启代理服务器
         pathRewrite: {
         // '^/dev-api': '',
