@@ -1,7 +1,6 @@
 <template>
   <div class="app-container">
     <el-button type="primary" @click="handleAddRole">新增角色</el-button>
-
     <el-table :data="rolesList" style="width: 100%;margin-top: 30px;" border>
       <el-table-column align="center" label="角色类型" width="180">
         <template slot-scope="scope">
@@ -36,7 +35,19 @@
         <el-form-item label="角色名称">
           <el-input v-model="role.RoleName" placeholder="请输入角色名称" />
         </el-form-item>
+        <el-form-item label="角色描述">
+          <el-input
+            v-model="role.Description"
+            :autosize="{ minRows: 2, maxRows: 4}"
+            type="textarea"
+            placeholder="请输入角色描述"
+          />
+        </el-form-item>
       </el-form>
+      <div style="text-align:right;">
+        <el-button type="danger" @click="dialogVisible=false">Cancel</el-button>
+        <el-button type="primary" @click="confirmRole">Confirm</el-button>
+      </div>
     </el-dialog>
   </div>
 </template>
