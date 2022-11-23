@@ -16,4 +16,10 @@ export function getRoles(query) {
   })
 }
 
-
+export function editRole(id, data) {
+  return request({
+    url: '/role/editRole',
+    method: 'post',
+    data
+  })
+}

@@ -9,12 +9,7 @@
       </el-table-column>
       <el-table-column align="center" label="角色名称" width="180">
         <template slot-scope="scope">
-          {{ scope.row.name }}
-        </template>
-      </el-table-column>
-      <el-table-column align="center" label="角色名称" width="180">
-        <template slot-scope="scope">
-          {{ scope.row.name }}
+          {{ scope.row.roleName }}
         </template>
       </el-table-column>
       <el-table-column align="center" label="角色描述">
@@ -29,6 +24,8 @@
         </template>
       </el-table-column>
     </el-table>
+
+    <el-pagination current-page="" />
 
     <el-dialog :visible.sync="dialogVisible" :title="dialogType=='edit'?'编辑':'新增角色'">
       <el-form :model="role" label-width="80px" label-position="left">
@@ -53,14 +50,43 @@
 </template>
 
 <script>
+
+import { getRoles, editRole } from '@/api/role'
+
+const defaultRole = {
+  roleType: 1,
+  roleName: '',
+  description: ''
+}
+
 export default {
   name: 'Role',
   data() {
-    return {}
+    return {
+      role: Object.assign({}, defaultRole),
+      rolesList: [],
+      dialogVisible: false,
+      dialogType: 'new'
+    }
+  },
+  created() {
+    this.getRoles()
   },
   methods: {
-    handleAddRole() {}
+    async getRoles() {
+      var res = await getRoles()
+      this.rolesList = res.data
+    },
+    handleAddRole() {
 
+    },
+    async confirmRole() {
+      const isEdit = this.dialogType === 'edit'
+
+      if (isEdit) {
+        await editRole(this.role.RecordID, this.role)
+      }
+    }
   }
 }
 </script>
