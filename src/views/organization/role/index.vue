@@ -25,7 +25,14 @@
       </el-table-column>
     </el-table>
 
-    <el-pagination current-page="" />
+    <el-pagination 
+      :current-page="currentPage"
+      :page-sizes="[1,10,20,30]"
+      :page-size="pageSize"
+      layout="total,sizes,prev,pager,next,jumper"
+      :total="total"
+      @current-change="handleCurrentChange"
+      @size-change="handleSizeChange" />
 
     <el-dialog :visible.sync="dialogVisible" :title="dialogType=='edit'?'编辑':'新增角色'">
       <el-form :model="role" label-width="80px" label-position="left">
@@ -65,6 +72,9 @@ export default {
     return {
       role: Object.assign({}, defaultRole),
       rolesList: [],
+      total: 0,
+      currentPage: 1,
+      pageSize: 10,
       dialogVisible: false,
       dialogType: 'new'
     }
@@ -74,8 +84,14 @@ export default {
   },
   methods: {
     async getRoles() {
-      var res = await getRoles()
+      var query = {
+        Keyword: '',
+        PageIndex: this.currentPage,
+        pageSize: this.pageSize
+      }
+      var res = await getRoles(query)
       this.rolesList = res.data
+      this.total = res.total
     },
     handleAddRole() {
 
@@ -86,6 +102,14 @@ export default {
       if (isEdit) {
         await editRole(this.role.RecordID, this.role)
       }
+    },
+    handleCurrentChange(pageNum){
+      this.currentPage = pageNum
+      this.getRoles()
+    },
+    handleSizeChange(pagesize){
+      this.pageSize = pagesize
+      this.getRoles()
     }
   }
 }
