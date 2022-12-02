@@ -25,14 +25,15 @@
       </el-table-column>
     </el-table>
 
-    <el-pagination 
+    <el-pagination
       :current-page="currentPage"
       :page-sizes="[1,10,20,30]"
       :page-size="pageSize"
       layout="total,sizes,prev,pager,next,jumper"
       :total="total"
       @current-change="handleCurrentChange"
-      @size-change="handleSizeChange" />
+      @size-change="handleSizeChange"
+    />
 
     <el-dialog :visible.sync="dialogVisible" :title="dialogType=='edit'?'编辑':'新增角色'">
       <el-form :model="role" label-width="80px" label-position="left">
@@ -103,11 +104,11 @@ export default {
         await editRole(this.role.RecordID, this.role)
       }
     },
-    handleCurrentChange(pageNum){
+    handleCurrentChange(pageNum) {
       this.currentPage = pageNum
       this.getRoles()
     },
-    handleSizeChange(pagesize){
+    handleSizeChange(pagesize) {
       this.pageSize = pagesize
       this.getRoles()
     }
